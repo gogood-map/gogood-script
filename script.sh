@@ -1,5 +1,15 @@
 #!/bin/bash
 
+if ! command -v mongo &>/dev/null; then
+    echo "Instalando MongoDB..."
+    sudo apt update
+    sudo apt install -y mongodb
+    sudo systemctl start mongodb
+    sudo systemctl enable mongodb
+else
+    echo "MongoDB já está instalado."
+fi
+
 # Verificar se o MySQL 8.0 está instalado
 if ! command -v mysql &>/dev/null; then
     echo "Instalando MySQL 8.0..."
@@ -65,13 +75,6 @@ sudo docker run -d --name redis-container redis
 
 # Iniciar container com imagem do Java 17 (considerando que o Git e o Java estão instalados na imagem)
 
-#!/bin/bash
-
-# Verificar se o MySQL 8.0 está instalado (como antes)...
-
-# Verificar se o Docker está instalado (como antes)...
-
-# Iniciar container com imagem do Redis (como antes)...
 
 # Verificar se a imagem do Java 17 está disponível e baixá-la, se necessário
 if ! sudo docker image inspect openjdk:17 &>/dev/null; then
